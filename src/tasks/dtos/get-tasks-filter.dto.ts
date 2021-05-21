@@ -1,8 +1,13 @@
-import { IsIn, IsNotEmpty, IsOptional } from 'class-validator';
-import { TaskStatus } from './../task.model';
+import { IsNotEmpty, IsOptional, Matches } from 'class-validator';
+import { TaskStatus } from './../task-status.enum';
 export class GetTaskFilterDto {
   @IsOptional()
-  @IsIn([TaskStatus.OPEN, TaskStatus.IN_PROGRESS, TaskStatus.DONE])
+  @Matches(
+    `^${Object.values(TaskStatus)
+      .filter((v) => typeof v !== 'number')
+      .join('|')}$`,
+    'i',
+  )
   status: TaskStatus;
 
   @IsOptional()

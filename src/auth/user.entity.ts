@@ -1,7 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Unique } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { IsIn } from 'class-validator';
+import { Task } from 'src/tasks/task.entity';
 
 @Entity()
 @Unique(['email'])
@@ -21,6 +28,10 @@ export class User extends BaseEntity {
 
   @Column()
   password: string;
+
+  // One to Many relationship: a user has many tasks
+  @OneToMany((type) => Task, (task) => task.user, { eager: true })
+  tasks: Task[];
 
   @Column()
   salt: string;

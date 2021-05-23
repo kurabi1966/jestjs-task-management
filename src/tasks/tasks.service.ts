@@ -3,14 +3,13 @@ import { CreateTaskDto } from './dtos/create-task.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { TaskStatus } from './task-status.enum';
 import { TaskRepository } from './task.repository';
-import { InjectRepository } from '@nestjs/typeorm';
+// import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.entity';
-import { contains } from 'class-validator';
 
 @Injectable()
 export class TasksService {
   constructor(
-    @InjectRepository(TaskRepository)
+    // @InjectRepository(TaskRepository)
     private readonly taskRepository: TaskRepository,
   ) {}
 
